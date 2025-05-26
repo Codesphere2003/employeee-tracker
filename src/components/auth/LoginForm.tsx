@@ -14,14 +14,21 @@ const LoginForm = ({ onLogin }: LoginFormProps) => {
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
-  // Temporarily disabled for testing - always allow login
+  // Check if current time is within allowed login hours (9 AM - 5 PM)
   const isWithinLoginHours = () => {
-    return true; // Always return true for testing
+    const now = new Date();
+    const hours = now.getHours();
+    return hours >= 9 && hours < 17;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
+    if (!isWithinLoginHours()) {
+      alert('Login is only allowed between 9:00 AM and 5:00 PM');
+      return;
+    }
+
     setIsLoading(true);
     
     // Simulate authentication - replace with actual Firebase auth
@@ -61,9 +68,9 @@ const LoginForm = ({ onLogin }: LoginFormProps) => {
             <ArrowLeft size={16} />
           </Button>
           <CardTitle className="text-2xl font-bold text-gray-800">Employee Tracker</CardTitle>
-          <div className="flex items-center justify-center gap-2 text-sm text-green-600 mt-2">
+          <div className="flex items-center justify-center gap-2 text-sm text-gray-600 mt-2">
             <Clock size={16} />
-            <span>Login Available 24/7 (Testing Mode)</span>
+            <span>Login Hours: 9:00 AM - 5:00 PM</span>
           </div>
         </CardHeader>
         <CardContent>
@@ -75,6 +82,7 @@ const LoginForm = ({ onLogin }: LoginFormProps) => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
+                disabled={!isWithinLoginHours()}
               />
             </div>
             <div>
@@ -84,16 +92,25 @@ const LoginForm = ({ onLogin }: LoginFormProps) => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
+                disabled={!isWithinLoginHours()}
               />
             </div>
             <Button 
               type="submit" 
               className="w-full"
-              disabled={isLoading}
+              disabled={!isWithinLoginHours() || isLoading}
             >
               {isLoading ? 'Logging in...' : 'Login'}
             </Button>
           </form>
+          
+          {!isWithinLoginHours() && (
+            <div className="mt-4 p-3 bg-yellow-100 border border-yellow-300 rounded-md">
+              <p className="text-sm text-yellow-800 text-center">
+                Login is currently disabled. Please try again during business hours (9 AM - 5 PM).
+              </p>
+            </div>
+          )}
           
           <div className="mt-6 space-y-4">
             <div className="text-xs text-gray-500 text-center">

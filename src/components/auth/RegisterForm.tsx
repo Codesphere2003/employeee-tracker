@@ -20,14 +20,20 @@ const RegisterForm = ({ onRegister, onBackToLogin }: RegisterFormProps) => {
   });
   const [isLoading, setIsLoading] = useState(false);
 
-  // Temporarily disabled for testing - always allow registration
   const isWithinLoginHours = () => {
-    return true; // Always return true for testing
+    const now = new Date();
+    const hours = now.getHours();
+    return hours >= 9 && hours < 17;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
+    if (!isWithinLoginHours()) {
+      alert('Registration is only allowed between 9:00 AM and 5:00 PM');
+      return;
+    }
+
     if (formData.password !== formData.confirmPassword) {
       alert('Passwords do not match');
       return;
@@ -75,9 +81,9 @@ const RegisterForm = ({ onRegister, onBackToLogin }: RegisterFormProps) => {
             </Button>
           </div>
           <CardTitle className="text-2xl font-bold text-gray-800">Create Account</CardTitle>
-          <div className="flex items-center justify-center gap-2 text-sm text-green-600 mt-2">
+          <div className="flex items-center justify-center gap-2 text-sm text-gray-600 mt-2">
             <Clock size={16} />
-            <span>Registration Available 24/7 (Testing Mode)</span>
+            <span>Registration Hours: 9:00 AM - 5:00 PM</span>
           </div>
         </CardHeader>
         <CardContent>
@@ -90,6 +96,7 @@ const RegisterForm = ({ onRegister, onBackToLogin }: RegisterFormProps) => {
                 value={formData.name}
                 onChange={handleInputChange}
                 required
+                disabled={!isWithinLoginHours()}
               />
             </div>
             <div>
@@ -100,6 +107,7 @@ const RegisterForm = ({ onRegister, onBackToLogin }: RegisterFormProps) => {
                 value={formData.email}
                 onChange={handleInputChange}
                 required
+                disabled={!isWithinLoginHours()}
               />
             </div>
             <div>
@@ -108,6 +116,7 @@ const RegisterForm = ({ onRegister, onBackToLogin }: RegisterFormProps) => {
                 value={formData.role}
                 onChange={handleInputChange}
                 className="w-full h-10 px-3 rounded-md border border-input bg-background text-sm"
+                disabled={!isWithinLoginHours()}
               >
                 <option value="employee">Employee</option>
                 <option value="admin">Admin</option>
@@ -121,6 +130,7 @@ const RegisterForm = ({ onRegister, onBackToLogin }: RegisterFormProps) => {
                 value={formData.password}
                 onChange={handleInputChange}
                 required
+                disabled={!isWithinLoginHours()}
               />
             </div>
             <div>
@@ -131,16 +141,25 @@ const RegisterForm = ({ onRegister, onBackToLogin }: RegisterFormProps) => {
                 value={formData.confirmPassword}
                 onChange={handleInputChange}
                 required
+                disabled={!isWithinLoginHours()}
               />
             </div>
             <Button 
               type="submit" 
               className="w-full"
-              disabled={isLoading}
+              disabled={!isWithinLoginHours() || isLoading}
             >
               {isLoading ? 'Creating Account...' : 'Create Account'}
             </Button>
           </form>
+          
+          {!isWithinLoginHours() && (
+            <div className="mt-4 p-3 bg-yellow-100 border border-yellow-300 rounded-md">
+              <p className="text-sm text-yellow-800 text-center">
+                Registration is currently disabled. Please try again during business hours (9 AM - 5 PM).
+              </p>
+            </div>
+          )}
         </CardContent>
       </Card>
     </div>
