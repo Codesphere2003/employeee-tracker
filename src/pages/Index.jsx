@@ -2,6 +2,9 @@
 import React, { useState } from 'react';
 import Navigation from '../components/layout/Navigation';
 import Home from './Home';
+import Features from './Features';
+import About from './About';
+import Contact from './Contact';
 import LoginForm from '../components/auth/LoginForm';
 import RegisterForm from '../components/auth/RegisterForm';
 import AdminDashboard from '../components/admin/AdminDashboard';
@@ -30,8 +33,18 @@ const Index = () => {
     setCurrentView('home');
   };
 
+  const handleNavigate = (view) => {
+    setCurrentView(view);
+  };
+
   const renderContent = () => {
     switch (currentView) {
+      case 'features':
+        return <Features />;
+      case 'about':
+        return <About />;
+      case 'contact':
+        return <Contact />;
       case 'login':
         return <LoginForm onLogin={handleLogin} />;
       case 'register':
@@ -58,6 +71,7 @@ const Index = () => {
         <Navigation
           onLoginClick={() => setCurrentView('login')}
           onRegisterClick={() => setCurrentView('register')}
+          onNavigate={handleNavigate}
           currentUser={currentUser}
           onLogout={handleLogout}
         />
