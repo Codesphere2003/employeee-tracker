@@ -26,6 +26,24 @@ const AdminDashboard = ({ user, onLogout }) => {
       status: 'Absent',
       checkInTime: null,
       checkInLocation: null
+    },
+    {
+      id: '3',
+      name: 'Mike Johnson',
+      email: 'mike@company.com',
+      assignedShop: { name: 'Shop A', lat: 40.7128, lng: -74.0060 },
+      status: 'Out of Range',
+      checkInTime: '09:45 AM',
+      checkInLocation: { lat: 40.7200, lng: -74.0100 }
+    },
+    {
+      id: '4',
+      name: 'Sarah Wilson',
+      email: 'sarah@company.com',
+      assignedShop: { name: 'Shop C', lat: 40.6782, lng: -73.9442 },
+      status: 'Present',
+      checkInTime: '10:30 AM',
+      checkInLocation: { lat: 40.6785, lng: -73.9445 }
     }
   ]);
 
@@ -86,7 +104,9 @@ const AdminDashboard = ({ user, onLogout }) => {
         )}
 
         {activeTab === 'map' && (
-          <AttendanceMap employees={employees} shops={shops} />
+          <div key="attendance-map">
+            <AttendanceMap employees={employees} shops={shops} />
+          </div>
         )}
       </div>
     </div>

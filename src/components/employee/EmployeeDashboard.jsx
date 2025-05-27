@@ -18,7 +18,7 @@ const EmployeeDashboard = ({ user, onLogout }) => {
   const isCheckInTime = () => {
     const now = new Date();
     const hours = now.getHours();
-    return hours >= 9 && hours < 10; // 9 AM to 10 AM
+    return hours >= 9 && hours < 17; // 9 AM to 5 PM
   };
 
   const handleCheckIn = (status, location) => {
@@ -112,7 +112,7 @@ const EmployeeDashboard = ({ user, onLogout }) => {
             {!checkInStatus.hasCheckedIn && !isCheckInTime() && (
               <div className="p-3 bg-yellow-100 border border-yellow-300 rounded-md">
                 <p className="text-sm text-yellow-800">
-                  Check-in is only available between 9:00 AM and 10:00 AM
+                  Check-in is only available between 9:00 AM and 5:00 PM
                 </p>
               </div>
             )}
