@@ -3,14 +3,7 @@ import React from 'react';
 import { Button } from "@/components/ui/button";
 import { MapPin, LogIn, UserPlus } from 'lucide-react';
 
-interface NavigationProps {
-  onLoginClick: () => void;
-  onRegisterClick: () => void;
-  currentUser?: any;
-  onLogout?: () => void;
-}
-
-const Navigation = ({ onLoginClick, onRegisterClick, currentUser, onLogout }: NavigationProps) => {
+const Navigation = ({ onLoginClick, onRegisterClick, currentUser, onLogout }) => {
   return (
     <nav className="bg-white shadow-sm border-b">
       <div className="container mx-auto px-4">

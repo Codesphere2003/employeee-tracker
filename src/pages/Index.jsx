@@ -7,20 +7,18 @@ import RegisterForm from '../components/auth/RegisterForm';
 import AdminDashboard from '../components/admin/AdminDashboard';
 import EmployeeDashboard from '../components/employee/EmployeeDashboard';
 
-type ViewType = 'home' | 'login' | 'register' | 'dashboard';
-
 const Index = () => {
-  const [currentView, setCurrentView] = useState<ViewType>('home');
+  const [currentView, setCurrentView] = useState('home');
   const [currentUser, setCurrentUser] = useState(null);
   const [userRole, setUserRole] = useState(null);
 
-  const handleLogin = (user: any, role: string) => {
+  const handleLogin = (user, role) => {
     setCurrentUser(user);
     setUserRole(role);
     setCurrentView('dashboard');
   };
 
-  const handleRegister = (user: any, role: string) => {
+  const handleRegister = (user, role) => {
     setCurrentUser(user);
     setUserRole(role);
     setCurrentView('dashboard');

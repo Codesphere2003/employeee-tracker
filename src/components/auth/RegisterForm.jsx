@@ -5,12 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ArrowLeft, Clock } from 'lucide-react';
 
-interface RegisterFormProps {
-  onRegister: (user: any, role: string) => void;
-  onBackToLogin: () => void;
-}
-
-const RegisterForm = ({ onRegister, onBackToLogin }: RegisterFormProps) => {
+const RegisterForm = ({ onRegister, onBackToLogin }) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -25,7 +20,7 @@ const RegisterForm = ({ onRegister, onBackToLogin }: RegisterFormProps) => {
     return true; // Always return true for testing
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     
     if (formData.password !== formData.confirmPassword) {
@@ -53,7 +48,7 @@ const RegisterForm = ({ onRegister, onBackToLogin }: RegisterFormProps) => {
     }, 1000);
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleInputChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value

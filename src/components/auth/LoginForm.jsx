@@ -5,11 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Clock, ArrowLeft } from 'lucide-react';
 
-interface LoginFormProps {
-  onLogin: (user: any, role: string) => void;
-}
-
-const LoginForm = ({ onLogin }: LoginFormProps) => {
+const LoginForm = ({ onLogin }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -19,7 +15,7 @@ const LoginForm = ({ onLogin }: LoginFormProps) => {
     return true; // Always return true for testing
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     
     setIsLoading(true);
